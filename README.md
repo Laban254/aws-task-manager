@@ -24,11 +24,9 @@ This project implements a web application that allows users to upload media file
 ### 🔄 **Real-Time Updates:**
 
 -   The **Flask app** listens for **SQS** messages.
--   It updates the media record with the generated thumbnail URL and displays it on the user dashboard.
+-   It updates the media record with the generated thumbnail URL.
 
-### 📊 **Dashboard:**
 
--   Users can view their uploaded media, including titles, descriptions, and generated thumbnails.
 
 ----------
 
