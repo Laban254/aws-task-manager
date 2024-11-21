@@ -3,6 +3,9 @@ import json
 import threading
 from app.db import db
 from app.models import Media
+from app.utills.logger import setup_logger 
+
+logger = setup_logger(__name__)
 
 def listen_for_thumbnail_update(app):
     """Listen for messages from SQS queue containing thumbnail URLs and update the media record."""
@@ -37,10 +40,22 @@ def listen_for_thumbnail_update(app):
                         media.thumbnail_url = thumbnail_url
                         try:
                             db.session.commit()
+                            logger.info(f"Media updated with thumbnail URL: {thumbnail_url} for media ID: {media_id}")
                         except Exception as e:
                             db.session.rollback()
+                            logger.error(f"Error updating media with ID {media_id}: {e}")
+                    
+                    try:
+                        sqs_client.delete_message(
+                            QueueUrl=queue_url,
+                            ReceiptHandle=message['ReceiptHandle']
+                        )
+                        logger.info(f"Successfully deleted message from SQS for media ID: {media_id}")
+                    except Exception as e:
+                        logger.error(f"Error deleting message from SQS for media ID {media_id}: {e}")
+            
             except Exception as e:
-                pass  
+                logger.error(f"Error processing SQS message: {e}")
 
 
 def start_sqs_listener(app):
@@ -48,3 +63,4 @@ def start_sqs_listener(app):
     listener_thread = threading.Thread(target=listen_for_thumbnail_update, args=(app,))
     listener_thread.daemon = True  
     listener_thread.start()
+    logger.info("SQS listener started in background thread.")
