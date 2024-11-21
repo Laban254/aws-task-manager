@@ -34,5 +34,5 @@ This project implements a web application that allows users to upload media file
 
 -   **Backend:** Python, Flask
 -   **Authentication:** AWS Cognito
--   **Cloud Services:** AWS S3, AWS Lambda, AWS SQS, AWS RDS (PostgreSQL)
+-   **Cloud Services:**  AWS S3, AWS Lambda, AWS SQS, AWS RDS (PostgreSQL), AWS CloudWatch
 -   **Frontend:** HTML, CSS, JavaScript, Bootstrap
