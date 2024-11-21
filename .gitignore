@@ -1,0 +1,35 @@
+# Python bytecode
+*.pyc
+*.pyo
+__pycache__/
+
+# Virtual environment
+.venv/
+venv/
+
+# Flask environment variables
+.env
+.env.*
+.flaskenv
+
+# SQLite database
+*.db
+*.sqlite3
+
+# Log files
+*.log
+
+# IDEs and Editors
+.vscode/
+.idea/
+
+# Test files
+.tox/
+.coverage
+nosetests.xml
+coverage.xml
+
+# Static files
+/static/uploads/
+/static/images/
+/media/
